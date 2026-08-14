@@ -1,5 +1,14 @@
 # App Store listing copy
 
+App record: **Agile Bar for Octopus**, Apple ID `6801441894`, bundle
+`io.reneo.OctoStatusBar`. Once live the store URL will be
+<https://apps.apple.com/app/id6801441894>.
+
+Build numbers already spent, so never reuse them: **1** (rejected in processing,
+ITMS-90546 missing asset catalog). Bump `CFBundleVersion` in
+[`Resources/Info.plist`](../Resources/Info.plist) for every upload — not
+`project.yml`, which deliberately no longer carries a version.
+
 Paste-ready metadata for the App Store Connect **macOS App › App Information**
 and **Version Information** panes. Kept here so the wording is reviewed in pull
 requests like everything else, rather than living only in a web form.
