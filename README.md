@@ -134,7 +134,10 @@ this one is not trying to win an argument.
 Day-to-day builds use the Swift package (`./build.sh`). The generated
 `.xcodeproj`, the `.icns`, and everything under `build/` are gitignored — they
 are build artefacts, and the drawing code and package manifest are the source of
-truth.
+truth. The App Store screenshots in `docs/app-store/` are committed, because
+they are what gets uploaded rather than something the build reproduces
+byte-for-byte — prices move, so re-running the tool never gives the same image
+twice.
 
 ### Publishing to the Mac App Store
 
@@ -164,8 +167,11 @@ Things that reliably trip people up:
 
 - **The privacy policy needs a public URL.** [PRIVACY.md](PRIVACY.md) in the repo
   is not enough — host it somewhere and put the URL in App Store Connect.
-- **Screenshots must be 1280×800, 1440×900, 2560×1600 or 2880×1800.** The images
-  in `docs/` are far too small; compose the popover onto a desktop background.
+- **Screenshots must be 1280×800, 1440×900, 2560×1600 or 2880×1800.** Run
+  `./Tools/make-screenshots.sh` — it renders the real popover against live
+  prices, composites it onto a drawn desktop, and writes four 2880×1800 images
+  to `docs/app-store/`. The listing copy to go with them is in
+  [`docs/app-store-listing.md`](docs/app-store-listing.md).
 - **Explain the menu bar in the Review Notes.** `LSUIElement` apps open no window
   and show no Dock icon, and reviewers have reported such apps as "not
   launching". Say explicitly that the price appears in the menu bar at the

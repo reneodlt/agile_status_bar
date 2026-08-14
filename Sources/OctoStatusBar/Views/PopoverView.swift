@@ -3,7 +3,16 @@ import SwiftUI
 struct PopoverView: View {
     @ObservedObject var store: RatesStore
     @ObservedObject var settings: Settings
-    @State private var showingSettings = false
+    @State private var showingSettings: Bool
+
+    /// `showingSettings` picks which face is up on first appearance. The app
+    /// always wants the prices; Tools/make-screenshots.swift wants both, and
+    /// this is cheaper than duplicating the card chrome to photograph it.
+    init(store: RatesStore, settings: Settings, showingSettings: Bool = false) {
+        self.store = store
+        self.settings = settings
+        _showingSettings = State(initialValue: showingSettings)
+    }
 
     private static let cardWidth: CGFloat = 340
 
