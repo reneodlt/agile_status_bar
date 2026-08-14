@@ -6,6 +6,10 @@
 
 **The current Octopus Agile electricity price, in your macOS menu bar.**
 
+[Mac App Store](https://apps.apple.com/app/id6801441894) ·
+[Support](https://plunge.ragg.uk/octostatusbar/support) ·
+[Privacy](https://plunge.ragg.uk/octostatusbar/privacy)
+
 </div>
 
 Agile Octopus prices change every half hour. Agile Bar keeps the live unit rate
@@ -59,13 +63,23 @@ chart keeps a true zero baseline so those slots read as what they are.
 
 Requires macOS 14 or later.
 
+**From the Mac App Store** — [Agile Bar for Octopus](https://apps.apple.com/app/id6801441894).
+Free, no in-app purchases. The store listing carries the longer name so it can
+be found by people searching for the tariff; the app itself is just Agile Bar.
+
+**From source**
+
 ```sh
 git clone https://github.com/reneodlt/agile_status_bar.git
 cd agile_status_bar
-./Tools/make-icon.sh     # generates the app icon
+./Tools/make-icon.sh     # generates the app icon and asset catalogue
 ./build.sh               # builds build/OctoStatusBar.app
 open build/OctoStatusBar.app
 ```
+
+`build.sh` signs ad-hoc, so the bundle runs on the machine that built it. It is
+not notarised — for a build you can hand to somebody else, use the App Store
+version.
 
 Then open the popover and click the gear — the card flips over — and set your
 region, either by picking it from the list or by typing a postcode and letting
