@@ -19,7 +19,10 @@ options:
 settings:
   base:
     MARKETING_VERSION: "1.0.0"
-    CURRENT_PROJECT_VERSION: "1"
+    # Bump for every upload — App Store Connect rejects a duplicate build
+    # number even when the previous build has been deleted. The marketing
+    # version only changes when what users see changes.
+    CURRENT_PROJECT_VERSION: "2"
     SWIFT_VERSION: "5.0"
     # Set your Apple Developer Team ID here, or select it in Xcode's
     # Signing & Capabilities tab. Left blank so the repo carries no identity.
