@@ -60,8 +60,8 @@ chart keeps a true zero baseline so those slots read as what they are.
 Requires macOS 14 or later.
 
 ```sh
-git clone https://github.com/<you>/octo_status_bar.git
-cd octo_status_bar
+git clone https://github.com/reneodlt/agile_status_bar.git
+cd agile_status_bar
 ./Tools/make-icon.sh     # generates the app icon
 ./build.sh               # builds build/OctoStatusBar.app
 open build/OctoStatusBar.app
