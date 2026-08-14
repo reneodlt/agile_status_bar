@@ -16,10 +16,16 @@
 	<string>Agile Bar</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+	<!-- These two are the single source of truth for the app's version, because
+	     ./build.sh copies this file verbatim and does no variable substitution.
+	     Setting MARKETING_VERSION / CURRENT_PROJECT_VERSION as build settings
+	     instead looks like it works and does nothing: the values only reach the
+	     bundle if this file interpolates them. Bump CFBundleVersion for every
+	     upload — App Store Connect refuses a duplicate build number. -->
 	<key>CFBundleShortVersionString</key>
 	<string>1.0.0</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>3</string>
 	<!-- CFBundleIconFile is the legacy .icns lookup, still used by ./build.sh.
 	     CFBundleIconName points at the AppIcon set inside Assets.car and is
 	     what App Store validation actually requires; without it an upload is
