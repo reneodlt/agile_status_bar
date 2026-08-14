@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<!-- Required for the Mac App Store. -->
-	<key>com.apple.security.app-sandbox</key>
-	<true/>
-	<!-- Outbound HTTPS to api.octopus.energy. Nothing else is needed:
-	     the app has no server of its own, reads no files, and never
-	     listens for incoming connections. -->
-	<key>com.apple.security.network.client</key>
-	<true/>
-</dict>
+<dict/>
 </plist>
