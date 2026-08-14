@@ -179,9 +179,13 @@ Things that reliably trip people up:
   UK-only.
 - **Bump `CURRENT_PROJECT_VERSION` for every upload.** App Store Connect rejects
   a duplicate build number even if the previous build was deleted.
-- **If validation complains about the icon**, convert `Resources/AppIcon.icns`
-  into an `Assets.xcassets` AppIcon set. The `.icns` already contains the
-  required 1024px variant, so try it as-is first.
+- **Run `./Tools/make-icon.sh` before archiving.** It writes both
+  `Resources/AppIcon.icns` (used by `./build.sh`) and
+  `Resources/Assets.xcassets` (used by the App Store build). A loose `.icns` is
+  *not* enough for an upload: validation rejects it as "does not have an icon in
+  ICNS format containing a 512pt x 512pt @2x image" even when the `.icns`
+  contains exactly that, because what it actually wants is the icon compiled
+  into `Assets.car` and named by `CFBundleIconName`.
 - Export compliance is already declared via `ITSAppUsesNonExemptEncryption` in
   [`Resources/Info.plist`](Resources/Info.plist), so you will not be asked about
   it on each upload.

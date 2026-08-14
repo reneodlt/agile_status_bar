@@ -20,7 +20,13 @@
 	<string>1.0.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<!-- CFBundleIconFile is the legacy .icns lookup, still used by ./build.sh.
+	     CFBundleIconName points at the AppIcon set inside Assets.car and is
+	     what App Store validation actually requires; without it an upload is
+	     rejected for a missing 512pt@2x icon however complete the .icns is. -->
 	<key>CFBundleIconFile</key>
+	<string>AppIcon</string>
+	<key>CFBundleIconName</key>
 	<string>AppIcon</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>14.0</string>
