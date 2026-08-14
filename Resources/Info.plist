@@ -26,6 +26,11 @@
 	<string>14.0</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.utilities</string>
+	<!-- The app only makes standard HTTPS requests, which are exempt from
+	     export regulations. Declaring it here stops App Store Connect asking
+	     the export-compliance question on every single upload. -->
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<!-- Menu bar accessory: no Dock icon, no main window. -->
 	<key>LSUIElement</key>
 	<true/>
