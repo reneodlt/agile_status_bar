@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support — Agile Bar</title>
+<meta name="description" content="Help with Agile Bar, the Octopus Agile price app for the macOS menu bar.">
+<style>
+:root{
+  --bg:#f7f8fa; --card:#fff; --ink:#14171c; --muted:#5c636e; --line:#e2e5ea;
+  --accent:#3987e5; --accent-soft:#eaf1fc;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#0e1116; --card:#161a21; --ink:#e8eaee; --muted:#98a0ad; --line:#252b34;
+    --accent:#5598e7; --accent-soft:#16243a;
+  }
+}
+*{box-sizing:border-box}
+body{
+  margin:0; padding:2.5rem 1.25rem 4rem; background:var(--bg); color:var(--ink);
+  font:16px/1.65 -apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+main{max-width:44rem; margin:0 auto}
+nav{font-size:.875rem; margin-bottom:2rem}
+nav a{color:var(--muted); text-decoration:none; margin-right:1.1rem}
+nav a:hover{color:var(--accent)}
+h1{font-size:2rem; line-height:1.2; letter-spacing:-.02em; margin:0 0 .35rem}
+.sub{color:var(--muted); font-size:.95rem; margin:0 0 2rem}
+h2{font-size:1.1rem; letter-spacing:-.01em; margin:2.5rem 0 .75rem}
+a{color:var(--accent)}
+code{font-size:.85em; background:var(--accent-soft); padding:.1em .4em; border-radius:4px}
+.contact{
+  background:var(--card); border:1px solid var(--line); border-radius:10px;
+  padding:1.25rem 1.4rem; margin:0 0 .5rem;
+}
+.contact p{margin:.35rem 0 0; color:var(--muted); font-size:.92rem}
+.contact strong{font-size:1.02rem}
+details{
+  border-bottom:1px solid var(--line); padding:.85rem 0;
+}
+details summary{
+  cursor:pointer; font-weight:500; list-style:none; display:flex; align-items:baseline; gap:.6rem;
+}
+details summary::-webkit-details-marker{display:none}
+details summary::before{content:"+"; color:var(--accent); font-weight:600; width:.8rem; flex:none}
+details[open] summary::before{content:"–"}
+details div{padding:.5rem 0 .25rem 1.4rem; color:var(--muted)}
+details div p{margin:.5rem 0}
+footer{margin-top:3.5rem; padding-top:1.25rem; border-top:1px solid var(--line);
+  color:var(--muted); font-size:.85rem}
+</style>
+</head>
+<body>
+<main>
+<nav>
+  <a href="./">Agile Bar</a>
+  <a href="./support">Support</a>
+  <a href="./privacy">Privacy</a>
+  <a href="./copyright">Copyright</a>
+</nav>
+
+<h1>Support</h1>
+<p class="sub">
+  Agile Bar shows the current Octopus Agile electricity price in the macOS menu bar.
+  Requires macOS 14 or later.
+</p>
+
+<div class="contact">
+  <strong>Get in touch</strong>
+  <p>
+    Questions, bug reports and feature requests are handled on GitHub:
+    <a href="https://github.com/reneodlt/agile_status_bar/issues">github.com/reneodlt/agile_status_bar/issues</a>.
+    You do not need to be a developer to open one — plain English is fine, and
+    every issue is read.
+  </p>
+</div>
+
+<h2>Common questions</h2>
+
+<details open>
+  <summary>I installed it but nothing opened</summary>
+  <div>
+    <p>
+      That is expected. Agile Bar has no window and no Dock icon — it lives
+      entirely in the menu bar. Look at the <strong>right-hand end of the menu bar
+      at the top of your screen</strong>: you should see a price in pence, such as
+      <code>24.3p</code>, with a small coloured dot beside it. Click it to open
+      the full interface.
+    </p>
+    <p>
+      On a Mac with a notch, a crowded menu bar can hide items. Quit some other
+      menu bar apps, or use a menu bar manager, to make room.
+    </p>
+  </div>
+</details>
+
+<details>
+  <summary>The prices are not right for where I live</summary>
+  <div>
+    <p>
+      Agile prices differ by electricity grid region, and the app defaults to
+      region C (London). Click the price, then the gear icon, and either pick
+      your region from the list or type your postcode and press Find.
+    </p>
+  </div>
+</details>
+
+<details>
+  <summary>Why can it only see a few hours ahead?</summary>
+  <div>
+    <p>
+      Octopus publishes the next day's Agile prices in the late afternoon,
+      usually around 16:00. Before then, less than 24 hours is genuinely known.
+      Rather than implying a full day of data it does not have, the app tells you
+      how far ahead it can actually see — "next 8h 30m", for instance.
+    </p>
+  </div>
+</details>
+
+<details>
+  <summary>Do I need an Octopus account or an API key?</summary>
+  <div>
+    <p>
+      No. Agile Bar reads Octopus Energy's public, unauthenticated tariff feed.
+      There is nothing to sign in to, no API key to paste, and no meter hardware
+      required. It works whether or not you are an Octopus customer.
+    </p>
+  </div>
+</details>
+
+<details>
+  <summary>The price does not match my bill</summary>
+  <div>
+    <p>
+      A few reasons this is normal. The app shows the <strong>unit rate</strong>
+      only — your bill also includes a daily standing charge. Prices can be shown
+      with or without VAT, which is a toggle in Settings. And the rate must be for
+      your own grid region to be comparable.
+    </p>
+    <p>
+      Agile Bar is for information only. Always check your Octopus account for
+      what you are actually billed.
+    </p>
+  </div>
+</details>
+
+<details>
+  <summary>It is showing a negative price</summary>
+  <div>
+    <p>
+      That is real, not a bug. Agile prices genuinely go below zero when the grid
+      has more generation than demand — you are paid to use electricity. The chart
+      keeps a true zero baseline so those slots read as what they are.
+    </p>
+  </div>
+</details>
+
+<details>
+  <summary>How do I start it automatically, or quit it?</summary>
+  <div>
+    <p>
+      Click the price, then the gear icon, and tick <strong>Open at login</strong>.
+      To quit, click the price and choose <strong>Quit</strong> at the bottom of
+      the panel.
+    </p>
+  </div>
+</details>
+
+<details>
+  <summary>What does the colour mean?</summary>
+  <div>
+    <p>
+      Prices are coloured against the rest of the visible day: blue for cheaper
+      than usual, grey for typical, red for dearer. The scale re-bases itself
+      daily, so it stays meaningful as the wholesale market moves. Colour is never
+      the only signal — every use is paired with a text label.
+    </p>
+  </div>
+</details>
+
+<footer>
+  Agile Bar is an independent, unofficial project. It is not affiliated with,
+  endorsed by, or supported by Octopus Energy. See the
+  <a href="./privacy">privacy policy</a> and <a href="./copyright">copyright</a>.
+</footer>
+</main>
+</body>
+</html>

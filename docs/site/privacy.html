@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy — Agile Bar</title>
+<meta name="description" content="Agile Bar collects nothing, sends nothing, and has no server.">
+<style>
+:root{
+  --bg:#f7f8fa; --card:#fff; --ink:#14171c; --muted:#5c636e; --line:#e2e5ea;
+  --accent:#3987e5; --accent-soft:#eaf1fc;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#0e1116; --card:#161a21; --ink:#e8eaee; --muted:#98a0ad; --line:#252b34;
+    --accent:#5598e7; --accent-soft:#16243a;
+  }
+}
+*{box-sizing:border-box}
+body{
+  margin:0; padding:2.5rem 1.25rem 4rem; background:var(--bg); color:var(--ink);
+  font:16px/1.65 -apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+main{max-width:44rem; margin:0 auto}
+nav{font-size:.875rem; margin-bottom:2rem}
+nav a{color:var(--muted); text-decoration:none; margin-right:1.1rem}
+nav a:hover{color:var(--accent)}
+h1{font-size:2rem; line-height:1.2; letter-spacing:-.02em; margin:0 0 .35rem}
+.sub{color:var(--muted); font-size:.9rem; margin:0 0 2.25rem}
+.sub code{font-size:.85em; background:var(--accent-soft); padding:.1em .4em; border-radius:4px}
+h2{font-size:1.1rem; letter-spacing:-.01em; margin:2.25rem 0 .6rem}
+p,li{color:var(--ink)}
+ul{padding-left:1.2rem}
+li{margin:.3rem 0}
+a{color:var(--accent)}
+.lede{
+  background:var(--card); border:1px solid var(--line); border-left:3px solid var(--accent);
+  border-radius:8px; padding:1rem 1.25rem; font-size:1.05rem; margin:0 0 1rem;
+}
+footer{margin-top:3.5rem; padding-top:1.25rem; border-top:1px solid var(--line);
+  color:var(--muted); font-size:.85rem}
+</style>
+</head>
+<body>
+<main>
+<nav>
+  <a href="./">Agile Bar</a>
+  <a href="./support">Support</a>
+  <a href="./privacy">Privacy</a>
+  <a href="./copyright">Copyright</a>
+</nav>
+
+<h1>Privacy Policy</h1>
+<p class="sub">Agile Bar · <code>io.reneo.OctoStatusBar</code> · Last updated 14 August 2026</p>
+
+<p class="lede">Agile Bar collects nothing, sends nothing, and has no server.</p>
+
+<h2>What the app does on the network</h2>
+<p>The app makes read-only HTTPS requests to one host, <code>api.octopus.energy</code>, to fetch:</p>
+<ul>
+  <li>the list of public Octopus Energy tariff products,</li>
+  <li>published half-hourly unit rates for the grid region you select,</li>
+  <li>optionally, the grid region for a postcode you type into Settings.</li>
+</ul>
+<p>
+  These are Octopus Energy's public, unauthenticated pricing endpoints. The app
+  never asks for, stores, or transmits an Octopus account number, API key, meter
+  identifier (MPAN), or any other account credential.
+</p>
+<p>
+  If you use the postcode lookup, the postcode you type is sent to Octopus Energy
+  solely to resolve it to a grid region letter. It is not stored by this app — only
+  the resulting region letter (a single character, A–P) is saved.
+</p>
+
+<h2>What is stored on your Mac</h2>
+<p>Inside the app's sandbox container, and nowhere else:</p>
+<ul>
+  <li>your chosen region and display preferences (macOS user defaults),</li>
+  <li>a cached copy of the most recently fetched prices, so the menu bar shows a
+      price immediately at login and keeps working through a brief network outage.</li>
+</ul>
+<p>Deleting the app removes both.</p>
+
+<h2>What is not collected</h2>
+<p>
+  No analytics. No crash reporting. No advertising identifiers. No tracking of any
+  kind. No data is shared with, or sold to, anybody.
+</p>
+
+<h2>Contact</h2>
+<p>
+  Questions about this policy: <a href="./support">get in touch</a>, or open an
+  issue on the <a href="https://github.com/reneodlt/agile_status_bar/issues">project's GitHub repository</a>.
+</p>
+
+<footer>
+  Agile Bar is an independent, unofficial project. It is not affiliated with,
+  endorsed by, or supported by Octopus Energy.
+</footer>
+</main>
+</body>
+</html>

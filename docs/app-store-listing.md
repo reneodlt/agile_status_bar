@@ -143,7 +143,7 @@ App Review follows this one. It must be reachable and must actually offer a way
 to get help, or the submission is rejected.
 
 ```
-https://octostatusbar.reneo.io/support
+https://plunge.ragg.uk/octostatusbar/support
 ```
 
 ## Marketing URL (optional)
@@ -154,15 +154,15 @@ The copyright page therefore goes here, which is the only free-form URL slot on
 the listing.
 
 ```
-https://octostatusbar.reneo.io/copyright
+https://plunge.ragg.uk/octostatusbar/copyright
 ```
 
 ## Privacy policy URL (required)
 
-Preferred, once the subdomain is serving:
+Preferred, once the pages are deployed (sources in `docs/site/`):
 
 ```
-https://octostatusbar.reneo.io/privacy
+https://plunge.ragg.uk/octostatusbar/privacy
 ```
 
 Working fallback — App Store Connect accepts a GitHub blob URL, and the repo is
