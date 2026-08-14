@@ -128,16 +128,50 @@ Apple's search does its own stemming.
 energy,tariff,smart,meter,unit,rate,kwh,cheap,ev,charging,bill,power,grid,usage,menubar
 ```
 
-## Support URL
+## Support URL (required)
+
+App Review follows this one. It must be reachable and must actually offer a way
+to get help, or the submission is rejected.
 
 ```
-https://github.com/reneodlt/agile_status_bar
+https://octostatusbar.reneo.io/support
 ```
 
-## Privacy policy URL
+## Marketing URL (optional)
+
+App Store Connect has no "copyright URL" field — see the Copyright section
+below, which is plain text and which Apple explicitly says must not be a URL.
+The copyright page therefore goes here, which is the only free-form URL slot on
+the listing.
+
+```
+https://octostatusbar.reneo.io/copyright
+```
+
+## Privacy policy URL (required)
+
+Preferred, once the subdomain is serving:
+
+```
+https://octostatusbar.reneo.io/privacy
+```
+
+Working fallback — App Store Connect accepts a GitHub blob URL, and the repo is
+public, so this is usable today if the site is not ready:
 
 ```
 https://github.com/reneodlt/agile_status_bar/blob/main/PRIVACY.md
+```
+
+## Copyright
+
+Plain text, not a URL. Apple's format is the year the rights were obtained
+followed by the owner, and their guidance says explicitly not to provide a URL
+here. Matches `NSHumanReadableCopyright` in
+[`Resources/Info.plist`](../Resources/Info.plist).
+
+```
+2026 Rich Green
 ```
 
 ## Category
