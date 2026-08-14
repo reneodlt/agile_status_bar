@@ -12,23 +12,48 @@ characters and the line breaks are meaningful.
 
 ## Name (30 max)
 
+The name is the highest-weighted field in App Store search, so it carries both
+terms people actually type. "for Octopus" rather than "Octopus" outright: the
+construction signals compatibility rather than endorsement, which is the point
+Guideline 5.2.1 turns on. *WattSaver for Octopus Energy*, *Octopus Energy Agile
+Watcher* and *OctopusAgilePrice* are all on the store under the same reasoning.
+
+Note this need not match `CFBundleName` ("Agile Bar") — a store name that
+extends the app's own name is normal, and the shorter one is what sits under
+the icon.
+
 ```
-Agile Bar
+Agile Bar for Octopus
 ```
 
 ## Subtitle (30 max)
 
+Deliberately shares no word with the name. Name and subtitle are indexed
+separately, so repeating "Agile" or "Octopus" here would buy nothing.
+
 ```
-Octopus Agile in your menu bar
+Half-hourly electricity prices
 ```
 
 ## Promotional text (170 max)
 
-Editable without resubmitting for review, so use it for anything seasonal.
+Sits above the description on the product page and can be changed without
+resubmitting for review — the one field that can follow the season or the
+market. Use it; a stale line here is a wasted 170 characters.
+
+Launch:
 
 ```
-Agile prices go negative more often in winter. Agile Bar keeps a true zero baseline on the chart, so the slots that pay you to use power read as exactly that.
+Free, open source, and asks for nothing — no account, no API key, no meter hardware. Just the live Agile rate in your menu bar, and the cheapest two hours ahead.
 ```
+
+Rotations to swap in later:
+
+- *Winter, when plunge pricing gets common* — "Agile goes below zero more often
+  than you would think. The chart keeps a true zero baseline, so the slots that
+  pay you to use power read as exactly that."
+- *Late afternoon publish* — "Tomorrow's prices land around 16:00. Agile Bar
+  picks them up on its own and tells you how far ahead it can actually see."
 
 ## Description (4000 max)
 
@@ -94,11 +119,13 @@ Prices shown are for information only. Always check your Octopus account for wha
 
 ## Keywords (100 max, comma-separated, no spaces after commas)
 
-Do not repeat words already in the Name or Subtitle — Apple indexes those
-separately and duplicating them wastes the budget.
+Nothing here repeats the Name or Subtitle — "agile", "bar", "octopus",
+"electricity" and "prices" are already indexed from those fields, so spending
+the budget on them again buys nothing. Singulars only, for the same reason
+Apple's search does its own stemming.
 
 ```
-electricity,energy,tariff,octopus,agile,price,smart,tracker,unit,rate,kwh,cheap,ev,charging
+energy,tariff,smart,meter,unit,rate,kwh,cheap,ev,charging,bill,power,grid,usage,menubar
 ```
 
 ## Support URL
