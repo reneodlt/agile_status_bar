@@ -45,6 +45,10 @@ printf '{\n  "info" : {\n    "author" : "xcode",\n    "version" : 1\n  }\n}\n' >
   printf '\n  ],\n  "info" : {\n    "author" : "xcode",\n    "version" : 1\n  }\n}\n'
 } > "$APPICONSET/Contents.json"
 
-plutil -lint "$APPICONSET/Contents.json" >/dev/null
+# Not `plutil -lint`: it infers the format from the .json extension, tries to
+# read it as an OpenStep plist, and fails on valid JSON — non-zero here killed
+# the whole script under `set -e` after the catalogue had already been written,
+# so the files looked right while CI went red.
+json_pp < "$APPICONSET/Contents.json" >/dev/null
 
 echo "Wrote Resources/AppIcon.icns and $CATALOG"
