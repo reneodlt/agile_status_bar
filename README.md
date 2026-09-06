@@ -233,23 +233,40 @@ XcodeGen, runs `./Tools/make-icon.sh`, and generates the project.
 [`ci_scripts/ci_pre_xcodebuild.sh`](ci_scripts/ci_pre_xcodebuild.sh) then runs the
 popover size guard, so the Guideline 4 defect cannot be shipped twice.
 
-Two things have to be set up by hand, once:
+The Xcode Cloud product is **Agile Bar**, with one workflow, **Default**: it
+archives macOS Release on every branch change to `main`, and deploys nowhere on
+its own. Menu paths below are Xcode 26.3; Apple moves them between releases, so
+check against the app rather than trusting this list if something is missing.
 
-- **Set `DEVELOPMENT_TEAM` as a workflow environment variable.** `project.yml`
-  ships it empty so the repo carries no identity; the post-clone script writes the
-  value in before generating the project. Without it the archive fails with
-  "Signing for 'OctoStatusBar' requires a development team".
-- **Create the workflow from Xcode, not from the App Store Connect website.** The
-  website scans the repository for a project to offer you and will find none.
-  Run `xcodegen generate`, open the project, and use Product → Xcode Cloud →
-  Create Workflow, which registers the project path and scheme name from the copy
-  in front of you. The runner regenerates a project at that same path, so the
-  reference resolves.
+Set up by hand, once, and recorded here because none of it lives in the repo:
 
-The scheme has to be a *shared* one for either of those to work, which is why
+- **`DEVELOPMENT_TEAM` is a shared environment variable on the product**, not a
+  build setting. `project.yml` ships it empty so the repo carries no identity, and
+  `ci_post_clone.sh` writes the value in before generating the project. Without it
+  the archive fails with "Signing for 'OctoStatusBar' requires a development team".
+  It lives under **Integrate → Manage Workflows… → Shared Environment Variables**,
+  and has to be ticked against the *Default* workflow there — defining it without
+  attaching it to a workflow silently does nothing.
+- **The workflow is created from Xcode, not from the App Store Connect website.**
+  The website scans the repository for a project to offer you and finds none.
+  Run `xcodegen generate`, open the project, then **Integrate → Create Workflow…**
+  — that registers the project path and scheme name from the copy in front of you,
+  and the runner regenerates a project at that same path, so the reference
+  resolves.
+
+Builds appear in the Reports navigator (**View → Navigators → Reports**) under the
+**Cloud** tab rather than **Local**.
+
+The scheme has to be a *shared* one for any of this to work, which is why
 `project.yml` declares it explicitly. Xcode autocreates an implicit scheme when a
 person opens a project — that is why local archiving worked for so long without
 one — but an implicit scheme lives in `xcuserdata` and never reaches a runner.
+
+If the Xcode Cloud menu items are greyed out, the cause is usually the account
+rather than the project: an Apple Developer Program membership that has lapsed
+disables them everywhere, including for products that already build, and Xcode
+keeps serving the stale entitlement until you sign out and back in under
+**Xcode → Settings… → Apple Accounts**.
 
 ## Referral link
 
