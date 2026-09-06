@@ -35,6 +35,15 @@ struct RateWindow: Hashable {
     var duration: TimeInterval { end.timeIntervalSince(start) }
 }
 
+/// An unbroken run of below-zero slots — the whole period you are paid to
+/// consume, rather than the half hour you happen to be standing in.
+struct PlungeRun: Hashable {
+    let end: Date
+    /// False when the run reaches the edge of the published series, so `end`
+    /// is the last price we know of rather than the real finish.
+    let confirmed: Bool
+}
+
 extension Array where Element == Rate {
     /// Ascending by start time, de-duplicated on `validFrom`.
     func normalised() -> [Rate] {
@@ -51,6 +60,29 @@ extension Array where Element == Rate {
     func upcoming(from date: Date, hours: Double) -> [Rate] {
         let horizon = date.addingTimeInterval(hours * 3600)
         return filter { $0.end > date && $0.validFrom < horizon }
+    }
+
+    /// The below-zero run containing `date`, or `nil` if that slot is not negative.
+    ///
+    /// Agile can sit under zero for hours, so counting down to the next slot
+    /// boundary answers a question nobody asked: what a plunge is worth planning
+    /// around is when the *whole* run ends. Contiguity is checked on the
+    /// timestamps, so a gap in the published series stops the run rather than
+    /// being papered over.
+    func plungeRun(at date: Date) -> PlungeRun? {
+        guard let start = firstIndex(where: { $0.contains(date) }),
+              self[start].valueIncVat < 0 else { return nil }
+
+        var last = start
+        while last + 1 < count,
+              self[last + 1].validFrom == self[last].end,
+              self[last + 1].valueIncVat < 0 {
+            last += 1
+        }
+        // Only a contiguous slot at or above zero proves where the run stops;
+        // running out of data — or into a gap — means we simply do not know.
+        let confirmed = last + 1 < count && self[last + 1].validFrom == self[last].end
+        return PlungeRun(end: self[last].end, confirmed: confirmed)
     }
 
     /// Cheapest contiguous run of `slotCount` slots at or after `date`.

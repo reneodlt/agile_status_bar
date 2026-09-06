@@ -171,7 +171,7 @@ struct PopoverView: View {
                 HStack(spacing: 5) {
                     Text(band.verdict)
                     Text("·").foregroundStyle(.tertiary)
-                    Text("\(Fmt.relative(current.end, now: store.now)) left")
+                    Text(timeLeft(current))
                 }
                 .font(.system(size: 11))
                 .foregroundStyle(.secondary)
@@ -185,6 +185,18 @@ struct PopoverView: View {
         } else {
             notice("No price for the current half hour.", symbol: "questionmark.circle")
         }
+    }
+
+    /// How long the current conditions last. For an ordinary slot that is the
+    /// half hour; for a plunge it is the whole below-zero run, because "15m
+    /// left" while three hours of free power remain is worse than useless.
+    /// Hedged when the run reaches the edge of the published prices.
+    private func timeLeft(_ current: Rate) -> String {
+        guard let plunge = store.currentPlungeRun else {
+            return "\(Fmt.relative(current.end, now: store.now)) left"
+        }
+        let remaining = Fmt.relative(plunge.end, now: store.now)
+        return plunge.confirmed ? "\(remaining) left" : "\(remaining)+ left"
     }
 
     private func bandChip(_ band: PriceBand) -> some View {

@@ -57,7 +57,11 @@ separately. Colour never carries meaning on its own — every use is paired with
 text label, and the chart's extremes are marked as well as coloured.
 
 Negative prices get their own treatment: Agile really does go below zero, and the
-chart keeps a true zero baseline so those slots read as what they are.
+chart keeps a true zero baseline so those slots read as what they are. The
+countdown next to the price runs to the end of the whole below-zero run rather
+than the current half hour, because that is the window worth planning around; it
+gains a `+` when the run reaches the edge of the published prices and the real
+end is not yet knowable.
 
 ## Installing
 

@@ -56,6 +56,10 @@ final class RatesStore: ObservableObject {
         return rates.first { $0.validFrom >= current.end }
     }
 
+    /// The below-zero run in progress, if there is one. Drives the countdown
+    /// in the hero: a plunge is planned around as one period.
+    var currentPlungeRun: PlungeRun? { rates.plungeRun(at: now) }
+
     var window: [Rate] { rates.upcoming(from: now, hours: Self.horizonHours) }
 
     var windowValues: [Double] { window.map(\.valueIncVat) }
