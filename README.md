@@ -191,8 +191,17 @@ Things that reliably trip people up:
   launching". Say explicitly that the price appears in the menu bar at the
   top-right and that clicking it opens the interface, and mention that prices are
   UK-only.
-- **Bump `CURRENT_PROJECT_VERSION` for every upload.** App Store Connect rejects
-  a duplicate build number even if the previous build was deleted.
+- **Bump `CFBundleVersion` in [`Resources/Info.plist`](Resources/Info.plist) for
+  every upload.** App Store Connect rejects a duplicate build number even if the
+  previous build was deleted.
+- **Run `./Tools/check-popover-size.sh` before archiving.** A submission was once
+  rejected under Guideline 4 (Design) for "windows that cut off text": NSPopover
+  does not take its size from a SwiftUI content view — the hosting controller
+  leaves `preferredContentSize` at zero, so an unsized popover sits on its own
+  320x320 default and lays the card into a box shorter than it needs, pushing the
+  price off the top. `AppDelegate.sizePopover()` measures the content and sets
+  `popover.contentSize`; this script checks the two still agree and that the card
+  fits a 1280x800 display. It exits non-zero if either breaks.
 - **Run `./Tools/make-icon.sh` before archiving.** It writes both
   `Resources/AppIcon.icns` (used by `./build.sh`) and
   `Resources/Assets.xcassets` (used by the App Store build). A loose `.icns` is

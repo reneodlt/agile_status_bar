@@ -37,11 +37,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         store.objectWillChange
             .receive(on: RunLoop.main)
-            .sink { [weak self] in self?.updateStatusItem() }
+            .sink { [weak self] in self?.contentDidChange() }
             .store(in: &cancellables)
         settings.objectWillChange
             .receive(on: RunLoop.main)
-            .sink { [weak self] in self?.updateStatusItem() }
+            .sink { [weak self] in self?.contentDidChange() }
             .store(in: &cancellables)
 
         updateStatusItem()
@@ -51,6 +51,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         NSWorkspace.shared.notificationCenter.addObserver(
             self, selector: #selector(systemDidWake),
             name: NSWorkspace.didWakeNotification, object: nil)
+    }
+
+    /// The menu bar text and the popover's height both follow the data.
+    private func contentDidChange() {
+        updateStatusItem()
+        if popover.isShown { sizePopover() }
     }
 
     func applicationWillTerminate(_ notification: Notification) {
@@ -166,10 +172,37 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
+    /// Tell the popover how big its content actually is.
+    ///
+    /// NSPopover does not learn this from a SwiftUI content view: the hosting
+    /// controller leaves `preferredContentSize` at zero, so the popover falls
+    /// back to its own 320x320 default and lays the card out into a box shorter
+    /// than it needs. The card's middle section is `maxHeight: .infinity`, so it
+    /// absorbs the difference and the top of the content — the price itself —
+    /// ends up outside the frame. That is what App Review reported as cut-off
+    /// text under Guideline 4; it depends on display and timing, which is why it
+    /// reproduced for them and not here.
+    ///
+    /// Measured before every show, and again whenever the content changes while
+    /// the popover is open (a missing rate swaps the hero for a shorter notice).
+    private func sizePopover() {
+        guard let view = popover.contentViewController?.view else { return }
+        view.layoutSubtreeIfNeeded()
+        var size = view.fittingSize
+        guard size.width > 0, size.height > 0 else { return }
+        // Belt and braces: never taller than the space under the menu bar, so
+        // the popover cannot run off the bottom of a small display either.
+        if let screen = statusItem.button?.window?.screen ?? NSScreen.main {
+            size.height = min(size.height, screen.visibleFrame.height - 24)
+        }
+        popover.contentSize = size
+    }
+
     private func showPopover() {
         guard let button = statusItem.button else { return }
         store.tick()
         store.refresh()
+        sizePopover()
 
         // An .accessory app is never frontmost on its own. Without activating,
         // a transient popover loses key the instant it appears — and the
