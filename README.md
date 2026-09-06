@@ -257,6 +257,14 @@ Set up by hand, once, and recorded here because none of it lives in the repo:
 Builds appear in the Reports navigator (**View → Navigators → Reports**) under the
 **Cloud** tab rather than **Local**.
 
+Xcode Cloud is a per-push check here, not the release path, and it cannot be made
+into one. Its post-actions are TestFlight Internal Testing, TestFlight External
+Testing, Notarize and Notify — none of them submits to App Store review, and a
+build uploaded as *TestFlight Internal Only* is flagged internal and can never be
+submitted to the App Store, so it cannot even be a first step. Releases are
+archived locally and uploaded from the Organizer; App Store review is always
+started by hand in App Store Connect.
+
 The scheme has to be a *shared* one for any of this to work, which is why
 `project.yml` declares it explicitly. Xcode autocreates an implicit scheme when a
 person opens a project — that is why local archiving worked for so long without

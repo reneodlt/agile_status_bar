@@ -22,12 +22,14 @@
 	     instead looks like it works and does nothing: the values only reach the
 	     bundle if this file interpolates them.
 
-	     CFBundleVersion is the one exception. Xcode Cloud is what uploads now,
-	     and App Store Connect refuses a duplicate build number, so a value
-	     committed here would be right exactly once. ci_pre_xcodebuild.sh
-	     overwrites it with CI_BUILD_NUMBER on a runner. The number below is
-	     what ./build.sh and a local archive use, and a record of the last
-	     cloud build; it does not need bumping by hand any more. -->
+	     Bump CFBundleVersion for every upload — App Store Connect refuses a
+	     duplicate build number. Uploads are made from a local archive, so this
+	     value is the one that ships and nothing bumps it for you.
+
+	     ci_pre_xcodebuild.sh overwrites it with CI_BUILD_NUMBER on an Xcode
+	     Cloud runner, so cloud archives never claim a number this file is
+	     still holding. That matters only if a TestFlight post-action is ever
+	     added; today no cloud build uploads anything. -->
 	<key>CFBundleShortVersionString</key>
 	<string>1.0.1</string>
 	<key>CFBundleVersion</key>

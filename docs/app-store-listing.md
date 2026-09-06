@@ -17,13 +17,12 @@ number to 1.0.1, or the build will not be selectable against it: App Store Conne
 matches a build to a version by `CFBundleShortVersionString`, and a mismatch
 simply leaves the build unattached with no obvious explanation.
 
-Build numbers are no longer bumped by hand. Xcode Cloud uploads now, and
-[`ci_scripts/ci_pre_xcodebuild.sh`](../ci_scripts/ci_pre_xcodebuild.sh) writes its
-`CI_BUILD_NUMBER` into [`Resources/Info.plist`](../Resources/Info.plist) at build
-time. That counter sits one ahead of the last manual upload by coincidence rather
-than design — cloud builds 1-3 were archive-only tests — so the numbering stays
-continuous from 4. Expect gaps whenever a build fails and is re-run; App Store
-Connect only cares that a number is unused, not that it is consecutive.
+Bump `CFBundleVersion` in [`Resources/Info.plist`](../Resources/Info.plist) for
+every upload. Xcode Cloud does not do this for you: its post-actions can only
+deploy to TestFlight or notarize, never submit to App Store review, and a build
+uploaded as *TestFlight Internal Only* is marked internal and can never be
+submitted to the App Store at all. Releases therefore go out from a local archive,
+and the number in that file is the one that ships.
 
 Never set the version in `project.yml`, which deliberately carries none.
 
