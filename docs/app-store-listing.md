@@ -9,13 +9,19 @@ ITMS-90546 missing asset catalog), **2**, and **3** (rejected under Guideline 4
 (Design), "windows that cut off text" — the popover was laid out into NSPopover's
 320x320 default and the price fell outside it; fixed by `AppDelegate.sizePopover()`
 and guarded by `./Tools/check-popover-size.sh`). The next upload is **4**, which is
-what `Resources/Info.plist` now carries, against version **1.0.1**.
+what `Resources/Info.plist` now carries, against version **1.0.0**.
 
-1.0.0 was never released — every build so far was rejected — so App Store Connect
-still holds a 1.0.0 version record. Before uploading, edit that record's version
-number to 1.0.1, or the build will not be selectable against it: App Store Connect
-matches a build to a version by `CFBundleShortVersionString`, and a mismatch
-simply leaves the build unattached with no obvious explanation.
+The store version stays **1.0.0**. It has never been released, so App Store
+Connect holds exactly one version record and you cannot add a second until the
+first ships — the binary has to match the record it is going into, because App
+Store Connect pairs them on `CFBundleShortVersionString`.
+
+Going to 1.0.1 was tried and reverted. The version number *is* editable, but only
+while the version sits in **Prepare for Submission**; once a submission is in
+flight the field is locked, so a 1.0.1 binary could not be attached and the
+submission had to be cancelled to get the field back. Not worth it for a release
+that was never public. Bump the marketing version on the first update *after* 1.0.0
+is live.
 
 Bump `CFBundleVersion` in [`Resources/Info.plist`](../Resources/Info.plist) for
 every upload. Xcode Cloud does not do this for you: its post-actions can only
