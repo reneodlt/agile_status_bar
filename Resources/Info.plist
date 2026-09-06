@@ -16,12 +16,18 @@
 	<string>Agile Bar</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
-	<!-- These two are the single source of truth for the app's version, because
+	<!-- These two are the source of truth for the app's version, because
 	     ./build.sh copies this file verbatim and does no variable substitution.
 	     Setting MARKETING_VERSION / CURRENT_PROJECT_VERSION as build settings
 	     instead looks like it works and does nothing: the values only reach the
-	     bundle if this file interpolates them. Bump CFBundleVersion for every
-	     upload — App Store Connect refuses a duplicate build number. -->
+	     bundle if this file interpolates them.
+
+	     CFBundleVersion is the one exception. Xcode Cloud is what uploads now,
+	     and App Store Connect refuses a duplicate build number, so a value
+	     committed here would be right exactly once. ci_pre_xcodebuild.sh
+	     overwrites it with CI_BUILD_NUMBER on a runner. The number below is
+	     what ./build.sh and a local archive use, and a record of the last
+	     cloud build; it does not need bumping by hand any more. -->
 	<key>CFBundleShortVersionString</key>
 	<string>1.0.1</string>
 	<key>CFBundleVersion</key>

@@ -13,6 +13,18 @@ set -eu
 
 cd "$CI_PRIMARY_REPOSITORY_PATH"
 
+# Xcode Cloud owns the build number once it is the thing doing the uploading.
+# App Store Connect refuses a duplicate, so a hardcoded CFBundleVersion means
+# the first push to main uploads and every one after it is rejected. CI_BUILD_NUMBER
+# is the product's own counter, which only ever goes up, so take it as the
+# authority whenever we are running on a runner and leave the committed value
+# alone otherwise — ./build.sh and a local archive still read the file as before.
+if [ -n "${CI_BUILD_NUMBER:-}" ]; then
+  echo "==> Setting CFBundleVersion to Xcode Cloud build $CI_BUILD_NUMBER"
+  /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $CI_BUILD_NUMBER" Resources/Info.plist
+  /usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" -c "Print :CFBundleVersion" Resources/Info.plist
+fi
+
 # Never let a stuck window server burn the whole build allowance.
 ./Tools/check-popover-size.sh &
 guard=$!

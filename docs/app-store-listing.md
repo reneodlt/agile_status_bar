@@ -17,9 +17,15 @@ number to 1.0.1, or the build will not be selectable against it: App Store Conne
 matches a build to a version by `CFBundleShortVersionString`, and a mismatch
 simply leaves the build unattached with no obvious explanation.
 
-Bump `CFBundleVersion` in
-[`Resources/Info.plist`](../Resources/Info.plist) for every upload — not
-`project.yml`, which deliberately no longer carries a version.
+Build numbers are no longer bumped by hand. Xcode Cloud uploads now, and
+[`ci_scripts/ci_pre_xcodebuild.sh`](../ci_scripts/ci_pre_xcodebuild.sh) writes its
+`CI_BUILD_NUMBER` into [`Resources/Info.plist`](../Resources/Info.plist) at build
+time. That counter sits one ahead of the last manual upload by coincidence rather
+than design — cloud builds 1-3 were archive-only tests — so the numbering stays
+continuous from 4. Expect gaps whenever a build fails and is re-run; App Store
+Connect only cares that a number is unused, not that it is consecutive.
+
+Never set the version in `project.yml`, which deliberately carries none.
 
 Paste-ready metadata for the App Store Connect **macOS App › App Information**
 and **Version Information** panes. Kept here so the wording is reviewed in pull
