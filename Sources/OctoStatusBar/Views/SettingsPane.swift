@@ -130,6 +130,7 @@ struct SettingsPane: View {
     private var aboutSection: some View {
         VStack(alignment: .leading, spacing: 8) {
             referralRow
+            plungeWatchRow
             Text("Prices come from the Octopus Energy public API. No account details are needed or collected.")
                 .font(.system(size: 10))
                 .foregroundStyle(.tertiary)
@@ -172,5 +173,28 @@ struct SettingsPane: View {
         .help("Opens share.octopus.energy in your browser")
     }
 
+    /// A sibling project, not a placement: this app only ever knows the prices
+    /// Octopus has published, so "will it go negative later this week" is a
+    /// question it genuinely cannot answer. One muted line, below the referral —
+    /// the settings face should stay settings rather than becoming a billboard.
+    private var plungeWatchRow: some View {
+        Link(destination: Self.plungeWatchURL) {
+            HStack(spacing: 5) {
+                Image(systemName: "chart.line.downtrend.xyaxis")
+                    .font(.system(size: 10))
+                Text("Will Agile pay you this week? See the plunge forecast")
+                    .font(.system(size: 10))
+                Image(systemName: "arrow.up.right")
+                    .font(.system(size: 8, weight: .semibold))
+                Spacer(minLength: 0)
+            }
+            .foregroundStyle(.secondary)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .help("Opens plunge.ragg.uk in your browser")
+    }
+
     private static let referralURL = URL(string: "https://share.octopus.energy/furious-jay-669")!
+    private static let plungeWatchURL = URL(string: "https://plunge.ragg.uk/")!
 }

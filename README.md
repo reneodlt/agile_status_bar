@@ -61,7 +61,8 @@ chart keeps a true zero baseline so those slots read as what they are. The
 countdown next to the price runs to the end of the whole below-zero run rather
 than the current half hour, because that is the window worth planning around; it
 gains a `+` when the run reaches the edge of the published prices and the real
-end is not yet knowable.
+end is not yet knowable. For whether one is *coming*, see
+[Plunge Watch](https://plunge.ragg.uk/) below.
 
 ## Installing
 
@@ -227,6 +228,21 @@ Octopus credits both you and the author of this app — that is disclosed in the
 app itself, and it is tucked away on the settings pane rather than put in front
 of the prices. Nothing about the app changes if you ignore it, and no referral
 or tracking data reaches this project either way.
+
+## Companion project
+
+[**Plunge Watch**](https://plunge.ragg.uk/)
+([source](https://github.com/ragmondo/plunge-predict)) — same author. It forecasts
+the probability that Agile plunges below 0p on each of the next seven days from GB
+weather, and keeps a scored track record of every forecast it has issued. Agile Bar
+answers *what is the price now*; Plunge Watch answers *is there a plunge in the week
+ahead*. It is also the host for this app's
+[support](https://plunge.ragg.uk/octostatusbar/support),
+[privacy](https://plunge.ragg.uk/octostatusbar/privacy) and
+[copyright](https://plunge.ragg.uk/octostatusbar/copyright) pages — see
+[`docs/site/README.md`](docs/site/README.md).
+
+The app links out to it once, from the settings pane, alongside the referral link.
 
 ## Licence
 
