@@ -16,7 +16,16 @@ cd "$CI_PRIMARY_REPOSITORY_PATH"
 echo "==> Working in $(pwd)"
 
 echo "==> Installing XcodeGen"
+# Homebrew's bin is not reliably on PATH inside a CI script, and letting brew
+# update itself first costs minutes and is a failure mode of its own.
+export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_NO_INSTALL_CLEANUP=1
 brew install xcodegen
+command -v xcodegen >/dev/null || {
+  echo "xcodegen is not on PATH after install; PATH=$PATH" >&2
+  exit 1
+}
 
 echo "==> Generating the icon (.icns + Assets.xcassets)"
 ./Tools/make-icon.sh
