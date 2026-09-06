@@ -77,3 +77,21 @@ targets:
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         # main.swift is the entry point; no @main attribute anywhere.
         SWIFT_STRICT_CONCURRENCY: minimal
+
+# Xcode Cloud selects a *shared* scheme by name, and XcodeGen writes no scheme
+# at all unless one is declared here. Xcode autocreates an implicit scheme when
+# a person opens the project, which is why local archiving worked and hid this;
+# an implicit scheme lives in xcuserdata and never reaches a build runner.
+schemes:
+  OctoStatusBar:
+    build:
+      targets:
+        OctoStatusBar: all
+    run:
+      config: Debug
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release

@@ -221,6 +221,36 @@ Things that reliably trip people up:
 Answer the App Privacy questionnaire as **Data Not Collected** — that is
 accurate, and [PRIVACY.md](PRIVACY.md) spells out why.
 
+### Building on Xcode Cloud
+
+A fresh clone has no `.xcodeproj`, no `.icns` and no asset catalog: all three are
+generated, and all three are gitignored because the drawing code and
+[`project.yml`](project.yml) are the source of truth. That is fine on a laptop,
+where you run the tools before archiving, and fatal on a build runner, which has
+run nothing. [`ci_scripts/ci_post_clone.sh`](ci_scripts/ci_post_clone.sh) closes
+that gap — Xcode Cloud runs it after cloning and before building, and it installs
+XcodeGen, runs `./Tools/make-icon.sh`, and generates the project.
+[`ci_scripts/ci_pre_xcodebuild.sh`](ci_scripts/ci_pre_xcodebuild.sh) then runs the
+popover size guard, so the Guideline 4 defect cannot be shipped twice.
+
+Two things have to be set up by hand, once:
+
+- **Set `DEVELOPMENT_TEAM` as a workflow environment variable.** `project.yml`
+  ships it empty so the repo carries no identity; the post-clone script writes the
+  value in before generating the project. Without it the archive fails with
+  "Signing for 'OctoStatusBar' requires a development team".
+- **Create the workflow from Xcode, not from the App Store Connect website.** The
+  website scans the repository for a project to offer you and will find none.
+  Run `xcodegen generate`, open the project, and use Product → Xcode Cloud →
+  Create Workflow, which registers the project path and scheme name from the copy
+  in front of you. The runner regenerates a project at that same path, so the
+  reference resolves.
+
+The scheme has to be a *shared* one for either of those to work, which is why
+`project.yml` declares it explicitly. Xcode autocreates an implicit scheme when a
+person opens a project — that is why local archiving worked for so long without
+one — but an implicit scheme lives in `xcuserdata` and never reaches a runner.
+
 ## Referral link
 
 Settings contains an Octopus Energy referral link. If you sign up through it,
