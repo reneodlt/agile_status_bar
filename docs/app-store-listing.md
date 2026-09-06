@@ -5,7 +5,19 @@ App record: **Agile Bar for Octopus**, Apple ID `6801441894`, bundle
 <https://apps.apple.com/app/id6801441894>.
 
 Build numbers already spent, so never reuse them: **1** (rejected in processing,
-ITMS-90546 missing asset catalog). Bump `CFBundleVersion` in
+ITMS-90546 missing asset catalog), **2**, and **3** (rejected under Guideline 4
+(Design), "windows that cut off text" — the popover was laid out into NSPopover's
+320x320 default and the price fell outside it; fixed by `AppDelegate.sizePopover()`
+and guarded by `./Tools/check-popover-size.sh`). The next upload is **4**, which is
+what `Resources/Info.plist` now carries, against version **1.0.1**.
+
+1.0.0 was never released — every build so far was rejected — so App Store Connect
+still holds a 1.0.0 version record. Before uploading, edit that record's version
+number to 1.0.1, or the build will not be selectable against it: App Store Connect
+matches a build to a version by `CFBundleShortVersionString`, and a mismatch
+simply leaves the build unattached with no obvious explanation.
+
+Bump `CFBundleVersion` in
 [`Resources/Info.plist`](../Resources/Info.plist) for every upload — not
 `project.yml`, which deliberately no longer carries a version.
 
@@ -209,4 +221,11 @@ The app shows electricity prices for the UK "Agile Octopus" tariff, fetched from
 Prices are UK-only, so the data will look correct but will not be locally relevant if tested outside the UK.
 
 There is a referral link on the settings pane. It is disclosed in the interface as benefiting both the user and the developer, and is not required to use any feature of the app.
+```
+
+For a resubmission, add a line naming what changed, so the reviewer is not left
+to rediscover it:
+
+```
+RESUBMISSION: the previous build was rejected under Guideline 4 (Design) for a window that cut off text. The popover was not being told the size of its content, so on some displays it fell back to a smaller default frame and the price at the top was clipped. It is now measured and sized from its content before every appearance, and clamped to fit the screen. Thank you for catching it.
 ```
